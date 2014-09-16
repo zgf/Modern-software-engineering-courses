@@ -26,14 +26,18 @@ int DynamicProgramming(const vector<int>& Array)
 			MaxList[i][j] = MaxList[i][j - 1] + Array[j];
 		}
 	}
-	vector<int> MaxChose(Array.size());
-	auto&& ChoseIter = MaxChose.begin();
-	for (auto&& MaxIter : MaxList)
+	auto max_element = MaxList[0][0];
+	for(auto i = 0; i < MaxList.size();i++)
 	{
-		*ChoseIter = *std::max_element(MaxIter.begin(), MaxIter.end());
-		++ChoseIter;
+		for(auto j = i; j < MaxList.size();j++)
+		{
+			if(MaxList[i][j] > max_element)
+			{
+				max_element = MaxList[i][j];
+			}
+		}
 	}
-	return *std::max_element(MaxChose.begin(),MaxChose.end());
+	return max_element;
 }
 int GetMiddleMax(const vector<int>& Array, const int Low,const int Mid, const int High)
 {
@@ -102,16 +106,26 @@ int DynamicProgrammingOn(const vector<int>& Array)
 }
 void Test_Value(const vector<int>& Array)
 {
-	auto Result1 = CirculationAlgorithm(Array);
-	auto Result2 = DynamicProgramming(Array);
-	auto Result3 = DynamicProgrammingOn(Array);
-	assert(Result1 == Result2&& Result2== Result3);
+	if (!Array.empty())
+	{
+		auto Result1 = CirculationAlgorithm(Array);
+		auto Result2 = DynamicProgramming(Array);
+		auto Result3 = DynamicProgrammingOn(Array);
+		assert(Result1 == Result2&& Result2 == Result3);
+	}
+	else
+	{
+		abort();
+	}
 }
 
 int main()
 {
 	Test_Value({ 1, 4, -1, 3, -1, 4 });
 	Test_Value({ 31, -41, 59, 26, -53, 58, 97, -93, -23, 84 });
+	Test_Value({1, -53,- 58 });
+	Test_Value({ -1, -53, -58 });
+
 	return 0;
 }
 
