@@ -15,16 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="作业\0.最大连续子序列之和\stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="作业\0.最大连续子序列之和\最大连续子数组之和.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="作业\0.最大连续子序列之和\stdafx.h">
+    <ClInclude Include="作业\1.单词频率统计\CommandParser.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\FileAnalysis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\ParamInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\ResultPacket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\src_analysis.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\forward.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="作业\1.单词频率统计\ControllParam.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="作业\1.单词频率统计\CommandParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="作业\1.单词频率统计\FileAnalysis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="作业\1.单词频率统计\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="作业\1.单词频率统计\ResultPacket.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

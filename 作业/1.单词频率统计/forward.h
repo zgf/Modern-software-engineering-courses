@@ -1,0 +1,46 @@
+#pragma once
+//std file
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+#include <tuple>
+#include <algorithm>
+#include <iostream>
+#include <memory>
+#include <fstream>
+#include <regex>
+#include <functional>
+#include <exception>
+#include <assert.h>
+//boost file
+#include "boost/filesystem.hpp"
+// userdefine file
+
+//std using
+using std::cout;
+using std::endl;
+using std::vector;
+using std::string;
+using std::unordered_map;
+using std::unordered_set;
+using std::make_pair;
+using std::shared_ptr;
+using std::make_shared;
+using std::function;
+using std::exception;
+using std::ifstream;
+using std::fstream;
+using std::regex;
+using std::regex_match;
+using std::regex_search;
+using std::smatch;
+using std::move;
+using std::find;
+using std::pair;
+using std::tuple;
+using std::make_tuple;
+using std::get;
+//boost using
+
+//userdefine using

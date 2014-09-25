@@ -118,13 +118,20 @@ void Test_Value(const vector<int>& Array)
 		abort();
 	}
 }
-
-int main()
+void TestAll()
 {
 	Test_Value({ 1, 4, -1, 3, -1, 4 });
 	Test_Value({ 31, -41, 59, 26, -53, 58, 97, -93, -23, 84 });
-	Test_Value({1, -53,- 58 });
+	Test_Value({ 1, -53, -58 });
 	Test_Value({ -1, -53, -58 });
+	Test_Value({ 1, -2, 3, 5, -1 });
+	Test_Value({ 1, -2, 3, -8, 5, 1 });
+	Test_Value({ 1, -2, 3, -2, 5, 1 });
+
+}
+int main()
+{
+	TestAll();
 	
 	return 0;
 }
