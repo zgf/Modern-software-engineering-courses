@@ -28,8 +28,8 @@ CommandParser::CommandParser(const vector<string>& args) : controllParamList(mak
 	SetControllParamList(args);
 	this->matchProperty = GetMatchProperty();
 	this->pathProperty = GetPathProperty();
-	fileNameList = matchActionMap[matchProperty](directoryPathName, pathProperty, GetFullPath());
-	auto& findIter = find(controllParamList->begin(), controllParamList->end(), ControllParam::RecursionPrint);
+	fileNameList = matchActionMap[matchProperty]( pathProperty, GetFullPath());
+	auto&& findIter = find(controllParamList->begin(), controllParamList->end(), ControllParam::RecursionPrint);
 	if(findIter != controllParamList->end())
 	{
 		controllParamList->erase(findIter);
@@ -101,13 +101,13 @@ void CommandParser::InitMatchActionMap()
 		}
 		return move(result);
 	};
-	matchActionMap.insert(make_pair(MatchProperty::MatchOne, [](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::MatchOne, [](const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
-		auto& result = make_shared<vector<string>>();
-		result->push_back(directoryPatnName);
+		auto&& result = make_shared<vector<string>>();
+		result->push_back(full_path.generic_string());
 		return move(result);
 	}));
-	matchActionMap.insert(make_pair(MatchProperty::MatchAll, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::MatchAll, [&MatchFile](const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		boost::filesystem::path& parentPath = full_path.parent_path();
 		if(boost::filesystem::is_directory(parentPath))
@@ -118,7 +118,7 @@ void CommandParser::InitMatchActionMap()
 		return {};
 	}));
 
-	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchOne, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchOne, [&MatchFile](const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		if(!boost::filesystem::exists(full_path))
 		{
@@ -133,7 +133,7 @@ void CommandParser::InitMatchActionMap()
 		return {};
 	}));
 
-	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchAll, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchAll, [&MatchFile]( const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		boost::filesystem::path& parentPath = full_path.parent_path();
 		if(boost::filesystem::is_directory(parentPath))

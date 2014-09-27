@@ -18,7 +18,7 @@ private:
 private:
 	vector<string> GetFileContent(string fileName);
 	//输入文件名.输出 填充 map content->controll->int
-	unordered_map<ControllParam, int> GetFileInfo(const string& name, const vector<string>& content);
+	unordered_map<ControllParam, int> GetFileInfo( const vector<string>& content);
 	void InitActionMap();
 	void InitResultMap();
 public:

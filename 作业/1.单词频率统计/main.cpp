@@ -14,7 +14,7 @@ bool except_eq(unordered_map<string, unordered_map<ControllParam, int>>& result,
 		if(bool_result == false)
 		{
 			cout << "ÎÄ¼þÃû:" << fileIter.first << endl;
-			for(int i = 0; i < real_result.size(); i++)
+			for(size_t i = 0; i < real_result.size(); i++)
 			{
 				cout << ResultPacket::enumToStringMap[real_result[i].first] << ": real value:" << real_result[i].second << " except value:" << except_result[i].second << endl;
 			}

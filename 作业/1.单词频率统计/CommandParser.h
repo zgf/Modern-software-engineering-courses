@@ -38,8 +38,7 @@ private:
 	PathProperty																pathProperty;
 	MatchProperty																matchProperty;
 	shared_ptr<vector<ControllParam>>											controllParamList;
-	unordered_map < MatchProperty, function < shared_ptr<vector<string>>
-		(const string&, const PathProperty&, const boost::filesystem::path&) >> matchActionMap;
+	unordered_map < MatchProperty, function < shared_ptr<vector<string>>(const PathProperty&, const boost::filesystem::path&) >> matchActionMap;
 public:
 	static unordered_map<string, ControllParam> paramMap;
 	static void									InitParamMap();

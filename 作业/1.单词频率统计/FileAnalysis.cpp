@@ -22,7 +22,7 @@ void FileAnalysis::InitActionMap()
 	actionMap.insert(make_pair(ControllParam::Char, [this](const string& lineContent)->int
 	{
 		//会有换行符
-		return lineContent.size();
+		return lineContent.size()+1;
 	}));
 	actionMap.insert(make_pair(ControllParam::Word, [this](const string& lineContent)->int
 	{
@@ -93,7 +93,7 @@ void FileAnalysis::InitResultMap()
 {
 	for(auto& name : *infoPacket.fileNameList)
 	{
-		resultMap->insert(make_pair(name, GetFileInfo(name, GetFileContent(name))));
+		resultMap->insert(make_pair(name, GetFileInfo(GetFileContent(name))));
 	}
 }
 FileAnalysis::~FileAnalysis()
@@ -119,7 +119,7 @@ vector<string> FileAnalysis::GetFileContent(string fileName)
 	return move(result);
 }
 //输入文件名.输出 填充 map Content->controll->int
-unordered_map<ControllParam, int> FileAnalysis::GetFileInfo(const string& name, const vector<string>& content)
+unordered_map<ControllParam, int> FileAnalysis::GetFileInfo(const vector<string>& content)
 {
 	unordered_map<ControllParam, int> result;
 	for(auto& Iter : stauts)
@@ -133,6 +133,11 @@ unordered_map<ControllParam, int> FileAnalysis::GetFileInfo(const string& name, 
 		{
 			controllIter.second += actionMap[controllIter.first](lineIter);
 		}
+	}
+	//去除最后一个换行符
+	if(stauts.find(ControllParam::Char)!=stauts.end())
+	{
+		--result[ControllParam::Char];
 	}
 	return move(result);
 }
