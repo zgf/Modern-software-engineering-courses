@@ -85,7 +85,7 @@ void FileAnalysis::InitActionMap()
 	}));
 	actionMap.insert(make_pair(ControllParam::CodeLine, [this](const string& lineContent)->int
 	{
-		return actionMap[ControllParam::EmptyLine](lineContent) ? 0 : actionMap[ControllParam::NoteLine](lineContent) ? 0 : 1;
+		return actionMap[ControllParam::EmptyLine](lineContent) ? 0 : 1;
 	}));
 }
 
@@ -135,7 +135,7 @@ unordered_map<ControllParam, int> FileAnalysis::GetFileInfo(const vector<string>
 		}
 	}
 	//去除最后一个换行符
-	if(stauts.find(ControllParam::Char)!=stauts.end())
+	if(stauts.find(ControllParam::Char) != stauts.end() && result[ControllParam::Char]!=0)
 	{
 		--result[ControllParam::Char];
 	}

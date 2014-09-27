@@ -55,7 +55,7 @@ void test_all()
 			prefix + "onechar.txt",
 			{
 				{ ControllParam::Char, 1 },
-				{ ControllParam::CodeLine, 1 },
+				{ ControllParam::CodeLine, 0 },
 				{ ControllParam::EmptyLine, 1 },
 				{ ControllParam::NoteLine, 0 },
 				{ ControllParam::SumLine, 1 },
@@ -66,7 +66,7 @@ void test_all()
 			prefix + "note1.txt",
 			{
 				{ ControllParam::Char, 2 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 1 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 1 },
 				{ ControllParam::SumLine, 1 },
@@ -77,7 +77,7 @@ void test_all()
 			prefix + "note2.txt",
 			{
 				{ ControllParam::Char, 4 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 1 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 1 },
 				{ ControllParam::SumLine, 1 },
@@ -88,7 +88,7 @@ void test_all()
 			prefix + "note3.txt",
 			{
 				{ ControllParam::Char, 5 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 2 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 2 },
 				{ ControllParam::SumLine, 2 },
@@ -99,7 +99,7 @@ void test_all()
 			prefix + "note4.txt",
 			{
 				{ ControllParam::Char, 7 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 2 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 2 },
 				{ ControllParam::SumLine, 2 },
@@ -110,7 +110,7 @@ void test_all()
 			prefix + "note5.txt",
 			{
 				{ ControllParam::Char, 8 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 3 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 3 },
 				{ ControllParam::SumLine, 3 },
@@ -121,7 +121,7 @@ void test_all()
 			prefix + "note6.txt",
 			{
 				{ ControllParam::Char, 7 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 2 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 2 },
 				{ ControllParam::SumLine, 2 },
@@ -132,10 +132,21 @@ void test_all()
 			prefix + "note7.txt",
 			{
 				{ ControllParam::Char, 8 },
-				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::CodeLine, 3 },
 				{ ControllParam::EmptyLine, 0 },
 				{ ControllParam::NoteLine, 3 },
 				{ ControllParam::SumLine, 3 },
+				{ ControllParam::Word, 0 },
+			}
+		},
+		{
+			prefix + "nullline.txt",
+			{
+				{ ControllParam::Char, 0 },
+				{ ControllParam::CodeLine, 0 },
+				{ ControllParam::EmptyLine, 1 },
+				{ ControllParam::NoteLine, 0 },
+				{ ControllParam::SumLine, 1 },
 				{ ControllParam::Word, 0 },
 			}
 		},
@@ -155,7 +166,7 @@ void test_all()
 		R"(F:\MyProjects\Modern-software-engineering-courses\Modern-software-engineering-courses\作业\1.单词频率统计\test\*.txt)",
 	}, except);
 }
-int main(int argc, char** argv)
+int main()
 {
 	try
 	{
