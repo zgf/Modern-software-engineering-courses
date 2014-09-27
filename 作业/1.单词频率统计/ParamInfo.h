@@ -1,7 +1,7 @@
 #pragma once
 #include "forward.h"
 #include "ControllParam.h"
- class ParamInfo
+class ParamInfo
 {
 public:
 	ParamInfo() = default;

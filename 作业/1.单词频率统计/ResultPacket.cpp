@@ -19,12 +19,16 @@ ResultPacket::~ResultPacket()
 }
 void ResultPacket::ShowResult()
 {
-	for (auto& nameIter : *resultMap)
+	for(auto& nameIter : *resultMap)
 	{
 		cout << "ÎÄ¼þÂ·¾¶:" << nameIter.first << endl;
-		for (auto& elementIter : nameIter.second)
+		for(auto& elementIter : nameIter.second)
 		{
 			cout << enumToStringMap[elementIter.first] << ": " << elementIter.second << endl;
 		}
 	}
+}
+shared_ptr<unordered_map<string, unordered_map<ControllParam, int>>> ResultPacket::GetResultMap()
+{
+	return this->resultMap;
 }

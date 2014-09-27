@@ -21,6 +21,7 @@ void FileAnalysis::InitActionMap()
 {
 	actionMap.insert(make_pair(ControllParam::Char, [this](const string& lineContent)->int
 	{
+		//»áÓÐ»»ÐÐ·û
 		return lineContent.size();
 	}));
 	actionMap.insert(make_pair(ControllParam::Word, [this](const string& lineContent)->int
@@ -79,12 +80,12 @@ void FileAnalysis::InitActionMap()
 				}
 			}
 		}
-		
+
 		return 1;
 	}));
 	actionMap.insert(make_pair(ControllParam::CodeLine, [this](const string& lineContent)->int
 	{
-		return actionMap[ControllParam::EmptyLine](lineContent) ? 0 : 1;
+		return actionMap[ControllParam::EmptyLine](lineContent) ? 0 : actionMap[ControllParam::NoteLine](lineContent) ? 0 : 1;
 	}));
 }
 
@@ -108,7 +109,7 @@ vector<string> FileAnalysis::GetFileContent(string fileName)
 	}
 	vector<string> result;
 	char* lineBuff = new char[1024];
-	while(!input.eof())
+	while(!input.peek() == input.eof())
 	{
 		input.getline(lineBuff, 1024);
 		result.emplace_back(lineBuff);

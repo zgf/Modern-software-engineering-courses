@@ -29,7 +29,7 @@ CommandParser::CommandParser(const vector<string>& args) : controllParamList(mak
 	this->matchProperty = GetMatchProperty();
 	this->pathProperty = GetPathProperty();
 	fileNameList = matchActionMap[matchProperty](directoryPathName, pathProperty, GetFullPath());
-	auto&& findIter = find(controllParamList->begin(), controllParamList->end(), ControllParam::RecursionPrint);
+	auto& findIter = find(controllParamList->begin(), controllParamList->end(), ControllParam::RecursionPrint);
 	if(findIter != controllParamList->end())
 	{
 		controllParamList->erase(findIter);
@@ -72,10 +72,15 @@ void									CommandParser::SetControllParamList(const vector<string>& args)
 }
 void CommandParser::InitMatchActionMap()
 {
-	auto functor = [](const string& pattern, auto&& iter)
+	auto MatchFile = [](const string& pattern, auto&& iter)
 	{
+		using iter_type = typename std::decay<decltype(iter)>::type;
+		static_assert(
+			std::is_same<iter_type, boost::filesystem::recursive_directory_iterator>::value ||
+			std::is_same<iter_type, boost::filesystem::directory_iterator>::value,
+			"error! iter not except type.");
 		auto&& result = make_shared<vector<string>>();
-		typename std::decay<decltype(iter)>::type end_iter;
+		iter_type end_iter;
 		for(; iter != end_iter; iter++)
 		{
 			try
@@ -102,18 +107,18 @@ void CommandParser::InitMatchActionMap()
 		result->push_back(directoryPatnName);
 		return move(result);
 	}));
-	matchActionMap.insert(make_pair(MatchProperty::MatchAll, [&functor](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::MatchAll, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		boost::filesystem::path& parentPath = full_path.parent_path();
 		if(boost::filesystem::is_directory(parentPath))
 		{
-			return functor(full_path.extension().string(), boost::filesystem::directory_iterator(parentPath));
+			return MatchFile(full_path.extension().string(), boost::filesystem::directory_iterator(parentPath));
 		}
 		assert(false);
 		return {};
 	}));
 
-	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchOne, [&functor](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchOne, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		if(!boost::filesystem::exists(full_path))
 		{
@@ -122,18 +127,18 @@ void CommandParser::InitMatchActionMap()
 		boost::filesystem::path& parentPath = full_path.parent_path();
 		if(boost::filesystem::is_directory(parentPath))
 		{
-			return functor(full_path.filename().generic_string(), boost::filesystem::recursive_directory_iterator(parentPath));
+			return MatchFile(full_path.filename().generic_string(), boost::filesystem::recursive_directory_iterator(parentPath));
 		}
 		assert(false);
 		return {};
 	}));
 
-	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchAll, [&functor](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
+	matchActionMap.insert(make_pair(MatchProperty::RecursionMatchAll, [&MatchFile](const string& directoryPatnName, const PathProperty& pathProperty, const boost::filesystem::path& full_path)->shared_ptr<vector<string>>
 	{
 		boost::filesystem::path& parentPath = full_path.parent_path();
 		if(boost::filesystem::is_directory(parentPath))
 		{
-			return move(functor(full_path.extension().string(), boost::filesystem::recursive_directory_iterator(parentPath)));
+			return move(MatchFile(full_path.extension().string(), boost::filesystem::recursive_directory_iterator(parentPath)));
 		}
 		assert(false);
 		return {};
@@ -143,7 +148,6 @@ void CommandParser::InitMatchActionMap()
 boost::filesystem::path CommandParser::GetFullPath() const
 {
 	assert(!directoryPathName.empty());
-
 	//因为C++缺少对象的null语义.所以这里没法检测是否PathProperty MatchProperty已经调用
 	if(pathProperty == PathProperty::Absolute)
 	{

@@ -15,4 +15,5 @@ private:
 
 public:
 	void ShowResult();
+	shared_ptr<unordered_map<string, unordered_map<ControllParam, int>>> GetResultMap();
 };
