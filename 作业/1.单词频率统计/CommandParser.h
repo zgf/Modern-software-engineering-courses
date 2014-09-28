@@ -33,13 +33,13 @@ private:
 	void													SetControllParamList(const vector<string>& args);
 	boost::filesystem::path									GetFullPath()										const;
 private:
-	shared_ptr<vector<string>>													fileNameList;
-	string																		directoryPathName;
-	PathProperty																pathProperty;
-	MatchProperty																matchProperty;
-	shared_ptr<vector<ControllParam>>											controllParamList;
-	unordered_map < MatchProperty, function < shared_ptr<vector<string>>( const boost::filesystem::path&) >> matchActionMap;
+	shared_ptr<vector<string>>																			fileNameList;
+	string																								directoryPathName;
+	PathProperty																						pathProperty;
+	MatchProperty																						matchProperty;
+	shared_ptr<vector<ControllParam>>																	controllParamList;
+	unordered_map <MatchProperty, function<shared_ptr<vector<string>>(const boost::filesystem::path&)>> matchActionMap;
 public:
-	static unordered_map<string, ControllParam> paramMap;
+	static unordered_map<string, ControllParam>															paramMap;
 	static void									InitParamMap();
 };

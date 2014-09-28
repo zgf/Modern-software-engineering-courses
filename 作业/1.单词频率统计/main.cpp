@@ -18,12 +18,16 @@ bool except_eq(unordered_map<string, unordered_map<ControllParam, int>>& result,
 			{
 				cout << ResultPacket::enumToStringMap[real_result[i].first] << ": real value:" << real_result[i].second << " except value:" << except_result[i].second << endl;
 			}
+			test_result.push_back(false);
 		}
-		test_result.push_back(false);
+		else
+		{
+			test_result.push_back(true);
+		}
 	}
-	return	std::any_of(test_result.begin(), test_result.end(), [](auto&& element)
+	return	std::all_of(test_result.begin(), test_result.end(), [](auto&& element)
 	{
-		return element == false;
+		return element == true;
 	});
 }
 void test(const vector<string>& args, const unordered_map<string, unordered_map<ControllParam, int>>& except)
